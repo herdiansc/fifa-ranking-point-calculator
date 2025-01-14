@@ -24,7 +24,7 @@ export const links: LinksFunction = () => [
   // },
   {
     rel: 'stylesheet',
-    href: '/css/tailwind.css',
+    href: '/fifa-ranking-point-calculator/css/tailwind.css',
   },
 ];
 
