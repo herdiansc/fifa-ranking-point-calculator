@@ -161,7 +161,7 @@ export default function Hero({rankings}) {
                   <img
                     className="mask mask-hexagon" 
                     width={150}
-                    src={'/images/flags/' + countriesInId[country1]['code2'].toLowerCase() + '.svg'} alt={'flag of ' + countriesInId[country1]['label']} />
+                    src={'/fifa-ranking-point-calculator/images/flags/' + countriesInId[country1]['code2'].toLowerCase() + '.svg'} alt={'flag of ' + countriesInId[country1]['label']} />
                   <h1 className="mb-2 text-2xl text-sky-900 text-center capitalize">
                     {countriesInId[country1]['label']}
                   </h1>
@@ -282,7 +282,7 @@ export default function Hero({rankings}) {
                   <img
                     className="mask mask-hexagon" 
                     width={150}
-                    src={'/images/flags/' + countriesInId[country2]['code2'].toLowerCase() + '.svg'} alt={'flag of ' + countriesInId[country2]['label']} />
+                    src={'/fifa-ranking-point-calculator/images/flags/' + countriesInId[country2]['code2'].toLowerCase() + '.svg'} alt={'flag of ' + countriesInId[country2]['label']} />
                 </div>
               </div>
             </>
