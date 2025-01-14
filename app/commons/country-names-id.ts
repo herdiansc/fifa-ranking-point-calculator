@@ -162,7 +162,7 @@ export const countriesInId: CountriesInId = {
   ZAN: { label: 'zanzibar', code2: '' },
   KOS: { label: 'kosovo', code2: 'XK' },
   MNG: { label: 'mongolia', code2: 'MN' },
-  FRA: { label: 'perancis', code2: '' },
+  FRA: { label: 'perancis', code2: 'FR' },
   SKN: { label: 'saint kitts dan nevis', code2: 'KN' },
   SCO: { label: 'skotlandia', code2: '' },
   DOM: { label: 'dominika', code2: 'DM' },

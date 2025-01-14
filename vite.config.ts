@@ -9,8 +9,10 @@ declare module "@remix-run/node" {
 }
 
 export default defineConfig({
+  base: "/fifa-ranking-point-calculator/",
   plugins: [
     remix({
+      basename: "/fifa-ranking-point-calculator/",
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,

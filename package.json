@@ -14,16 +14,13 @@
     "dev:css": "tailwindcss -w -i ./app/styles/tailwind.css -o public/css/tailwind.css"
   },
   "dependencies": {
-    "@prisma/client": "^6.0.1",
     "@remix-run/node": "^2.14.0",
     "@remix-run/react": "^2.14.0",
     "@remix-run/serve": "^2.14.0",
     "dayjs": "^1.11.13",
-    "google-play-scraper": "^10.0.1",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "remix-auth-google": "^2.0.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.14.0",
@@ -41,7 +38,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.38",
-    "prisma": "^6.0.1",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
