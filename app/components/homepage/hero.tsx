@@ -53,7 +53,7 @@ export default function Hero({rankings}) {
           <div className="hero-content text-center">
             <div className="mx-auto max-w-[780px]">
               <h1 className="mb-6 text-5xl font-bold text-sky-900">
-                Hitung Peringkat FIFA
+                Hitung Poin Peringkat FIFA
               </h1>
               <h2 className="mb-6 text-3xl text-sky-900">
                 Pertandingan Berikut Ini

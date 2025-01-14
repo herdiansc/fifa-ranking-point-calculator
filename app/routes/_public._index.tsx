@@ -18,8 +18,8 @@ import Hero from '~/components/homepage/hero';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'PUBLIC' },
-    { name: 'description', content: 'Welcome to Remix!' },
+    { title: 'Hitung Poin Peringkat FIFA' },
+    { name: 'description', content: 'Pilih negara yang akan bertanding dan hitung perolehan poin peringkat fifa setelahnya jika salah satu menang atau draw.' },
   ];
 };
 
@@ -27,7 +27,7 @@ export default function Index() {
   const [rankings, setRankings] = React.useState();
   React.useEffect(() => {
     const a = async () => {
-      const response = await fetch(`/fifa-ranking-point-calculator/data/fifa-country-rank.json`);
+      const response = await fetch(`/data/fifa-country-rank.json`);
       const body = await response.json();
       setRankings(body)
     };
