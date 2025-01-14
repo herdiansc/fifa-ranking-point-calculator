@@ -27,7 +27,7 @@ export default function Index() {
   const [rankings, setRankings] = React.useState();
   React.useEffect(() => {
     const a = async () => {
-      const response = await fetch(`/data/fifa-country-rank.json`);
+      const response = await fetch(`data/fifa-country-rank.json`);
       const body = await response.json();
       setRankings(body)
     };
