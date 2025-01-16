@@ -1,21 +1,8 @@
 import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
-export default function App() {
-  return (
-    <html lang="en" data-theme="rivu">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-
-        <script
-          type="module" 
-          dangerouslySetInnerHTML={{
-            __html: `
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-
+function log() {
   const firebaseConfig = {
     apiKey: "AIzaSyAvHJTVctjLml0Nm0iGECs2uNFUTIbOBGk",
     authDomain: "hitungperingkatfifa.firebaseapp.com",
@@ -25,13 +12,19 @@ export default function App() {
     appId: "1:576900346065:web:b21905dd6bdc74e4fa55f0",
     measurementId: "G-RRLTK0DVCK"
   };
+  const analytics = getAnalytics(initializeApp(firebaseConfig));
+  logEvent(analytics ,'screen_view');
+}
 
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  logEvent(analytics ,'page_views');
-    `,
-          }}
-        />
+export default function App() {
+  log();
+  return (
+    <html lang="en" data-theme="rivu">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
       </head>
       <body>
         <Outlet />
@@ -40,22 +33,3 @@ export default function App() {
     </html>
   );
 }
-
-
-// export function HydrateFallback() {
-//   return (
-//     <>
-//       <p>Loading...</p>
-//       <Scripts />
-//     </>
-//   );
-// }
-
-// export default function App() {
-//   return (
-//     <>
-//       <Outlet />
-//       <Scripts />
-//     </>
-//   );
-// }
