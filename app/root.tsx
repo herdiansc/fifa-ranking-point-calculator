@@ -28,6 +28,7 @@ export default function App() {
 
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+  logEvent(analytics ,'page_views');
     `,
           }}
         />

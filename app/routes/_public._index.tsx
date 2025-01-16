@@ -32,7 +32,7 @@ export default function Index() {
       setRankings(body)
     };
     a();
-  });
+  }, []);
   return (
     <>
       <div
