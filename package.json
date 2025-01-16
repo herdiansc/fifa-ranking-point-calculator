@@ -6,7 +6,7 @@
   "scripts": {
     "route": "remix routes",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
+    "start": "BASE_URL=http://localhost:3000 remix-serve ./build/server/index.js",
     "typecheck": "tsc",
     "build": "npm run build:css && remix vite:build",
     "build:css": "tailwindcss -m -i ./app/styles/tailwind.css -o public/css/tailwind.css",

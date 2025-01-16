@@ -21,15 +21,18 @@ type CountryOptions = {
 };
 const createCountryOptions = (countryRank: CountryRank) => {
   const countryOptions: CountryOptions = {};
+  const countryPoints: number[] = [];
   countryRank.rankings.map((item) => {
+    const name = item.rankingItem.countryCode in countriesInId ? countriesInId[item.rankingItem.countryCode]['label'] : item.rankingItem.name;
     countryOptions[item.rankingItem.countryCode] = {
-      name: item.rankingItem.name,
+      name: name,
       point: item.rankingItem.totalPoints,
       rank: item.rankingItem.rank,
       tag: item.tag.id,
     };
+    countryPoints.push(item.rankingItem.totalPoints);
   });
-  return countryOptions;
+  return {countryOptions, countryPoints};
 };
 
 const getDiffPoint = (lastPoint: number, newPoint: number) => {
@@ -40,16 +43,20 @@ const getDiffPoint = (lastPoint: number, newPoint: number) => {
 export default function Hero() {
   const parentData = useLoaderData() as ParentData;
   const [searchParams, setSearchParams] = useSearchParams();
-  const [matchType, setMatchType] = useState(searchParams.get('matchType'));
-  const [country1, setCountry1] = useState(searchParams.get('country1'));
-  const [country2, setCountry2] = useState(searchParams.get('country2'));
+  const [matchType, setMatchType] = useState(searchParams.get('matchType') || '');
+  const [country1, setCountry1] = useState(searchParams.get('country1') || '');
+  const [country2, setCountry2] = useState(searchParams.get('country2') || '');
 
   const [matchResult, setMatchResult] = useState('draw');
   const [matchPointResult, setMatchPointResult] = useState({});
   const [resultLabel, setResultLabel] = useState('imbang');
 
+  const [matchRankResult, setMatchRankResult] = useState({});
+
   const matchTypes = getMatchTypes();
-  const countryOptions = createCountryOptions(parentData.data);
+  const {countryOptions, countryPoints} = createCountryOptions(parentData.data);
+
+console.log(country1, country2, matchType);
 
   const a = (mr) => {
     const mpr = getPointResult(
@@ -61,11 +68,19 @@ export default function Hero() {
     );
     setMatchPointResult(mpr);
 
+    console.log('mpr', mpr);
+    const mrr = getNewRank(mpr);
+    console.log('mrr', mrr);
+    setMatchRankResult(mrr);
+
     document.getElementById('my_modal_5').showModal();
   };
 
+  console.log('000');
   React.useEffect(()=> {
+    console.log('AAA');
     if (matchType && country1 && country2) {
+      console.log('BBB');
       a('draw');
     }
   }, []);
@@ -93,16 +108,6 @@ export default function Hero() {
       return 'bg-green-300';
     }
     return 'bg-rose-300';
-  };
-
-  const getTextColor = (curTeam: string, mr: string) => {
-    if (mr === 'draw') {
-      return 'text-neutral-500';
-    }
-    if (curTeam === mr) {
-      return 'text-green-700';
-    }
-    return 'text-rose-700';
   };
 
   const getStatFigure = (lastPoint: number, newPoint: number) => {
@@ -143,6 +148,99 @@ export default function Hero() {
     }
     return ret;
   };
+
+  const getNewRank = (mpr) => {
+    let newRankOne = 1;
+    let newRankTwo = 1;
+    for (const [key, value] of Object.entries(countryOptions)) {
+      if (value.point > mpr['resultTeamOne']) {
+        newRankOne++;
+      }
+      if (value.point > mpr['resultTeamTwo']) {
+        newRankTwo++;
+      }
+      if (value.point < mpr['resultTeamOne'] && value.point < mpr['resultTeamTwo']) {
+        break;
+      }
+    }
+
+    let labelOne = 'tetap';
+    let textColorOne = 'text-neutral-500';
+    let iconOne = 'M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3';
+    if (countryOptions[country1]['rank'] < newRankOne) {
+      labelOne = 'turun';
+      textColorOne = 'text-rose-700';
+      iconOne = 'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
+    }
+    if (countryOptions[country1]['rank'] > newRankOne) {
+      labelOne = 'naik';
+      textColorOne = 'text-green-700';
+      iconOne = 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
+    }
+
+    let labelTwo = 'tetap';
+    let textColorTwo = 'text-neutral-500';
+    let iconTwo = 'M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3';
+    if (countryOptions[country2]['rank'] < newRankTwo) {
+      labelTwo = 'turun';
+      textColorTwo = 'text-rose-700';
+      iconTwo = 'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
+    }
+    if (countryOptions[country2]['rank'] > newRankTwo) {
+      labelTwo = 'naik';
+      textColorTwo = 'text-green-700';
+      iconTwo = 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
+    }
+
+    return {
+      [country1]: {
+        newRank: newRankOne,
+        label: labelOne,
+        textColor: textColorOne,
+        icon: (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="inline-block h-8 w-8"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d={iconOne}
+            />
+          </svg>
+        ),
+      },
+      [country2]: {
+        newRank: newRankTwo,
+        label: labelTwo,
+        textColor: textColorTwo,
+        icon: (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="inline-block h-8 w-8"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d={iconTwo}
+            />
+          </svg>
+        ),
+      }
+    };
+  };
+
+  const getRankMeta = (countryCode: string, key: string) => {
+    return countryCode in matchRankResult ? matchRankResult[countryCode][key] : '';
+  }
 
   return (
     <div className="container">
@@ -185,7 +283,7 @@ export default function Hero() {
                     {Object.keys(countryOptions).map((key) => {
                       return (
                         <option key={key} value={key} className="capitalize">
-                          { key in countriesInId ? countriesInId[key]['label'] : countryOptions[key]['name']}
+                          { countryOptions[key]['name'] }
                         </option>
                       );
                     })}
@@ -202,7 +300,7 @@ export default function Hero() {
                     {Object.keys(countryOptions).map((key) => {
                       return (
                         <option key={key} value={key} className="capitalize">
-                          { key in countriesInId ? countriesInId[key]['label'] : countryOptions[key]['name']}
+                          { countryOptions[key]['name'] }
                         </option>
                       );
                     })}
@@ -243,7 +341,7 @@ export default function Hero() {
 
       <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
         <div className="modal-box">
-          {matchType && country1 && country2 ? (
+          {matchType && country1 && country2 && matchRankResult ? (
             <>
               <h1 className="text-center text-xl text-sky-900 font-bold capitalize">
                 Pertandingan {resultLabel}
@@ -304,7 +402,7 @@ export default function Hero() {
 
               <div className="flex w-full mt-4">
                 <div className="grid flex-grow place-items-center">
-                  <div className="stats shadow drop-shadow-md">
+                  <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
                     <div className="stat place-items-center">
                       <div className={"stat-figure " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>
                         {getStatFigure(
@@ -341,12 +439,42 @@ export default function Hero() {
                 </div>
               </div>
 
+                      
               <div className="text-center my-4 text-sky-900 capitalize">
                 Perubahan Peringkat
-                <p className="text-center text-xs italic mb-4 text-neutral-600">Asumsi tim lain belum berttanding</p>
+                <p className="text-center text-xs italic mb-4 text-neutral-600">Asumsi tim lain belum bertanding</p>
               </div>
 
-
+              <div className="flex w-full mt-4">
+                <div className="grid flex-grow place-items-center">
+                  <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
+                    <div className="stat place-items-center">
+                      <div className={"stat-figure " + getRankMeta(country1, 'textColor')}>
+                        {getRankMeta(country1, 'icon')}
+                      </div>
+                      <div className={"stat-title capitalize " + getRankMeta(country1, 'textColor')}>Peringkat {countriesInId[country1]['label']}</div>
+                      <div className={"stat-value " + getRankMeta(country1, 'textColor')}>
+                        #{getRankMeta(country1, 'newRank')}
+                      </div>
+                      <div className={"stat-desc capitalize " + getRankMeta(country1, 'textColor')}>
+                        {getRankMeta(country1, 'label')}
+                      </div>
+                    </div>
+                    <div className="stat place-items-center">
+                      <div className={"stat-figure " + getRankMeta(country2, 'textColor')}>
+                        {getRankMeta(country2, 'icon')}
+                      </div>
+                      <div className={"stat-title capitalize " + getRankMeta(country2, 'textColor')}>Peringkat {countriesInId[country2]['label']}</div>
+                      <div className={"stat-value " + getRankMeta(country2, 'textColor')}>
+                        #{getRankMeta(country2, 'newRank')}
+                      </div>
+                      <div className={"stat-desc capitalize " + getRankMeta(country2, 'textColor')}>
+                        {getRankMeta(country2, 'label')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             </>
           ) : (

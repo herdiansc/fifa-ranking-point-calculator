@@ -11,6 +11,7 @@ export const loader: LoaderFunction = async () => {
     const json = await response.json();
     return {data: json, baseUrl: process.env.BASE_URL};
   } catch (error) {
+    console.log('error', error);
     return {data: null, baseUrl: process.env.BASE_URL};
   }
 };
