@@ -12,8 +12,12 @@ function log() {
     appId: "1:576900346065:web:b21905dd6bdc74e4fa55f0",
     measurementId: "G-RRLTK0DVCK"
   };
-  const analytics = getAnalytics(initializeApp(firebaseConfig));
-  logEvent(analytics ,'screen_view');
+  const analytics = typeof window !== 'undefined' ? getAnalytics(initializeApp(firebaseConfig)) : null;
+
+  // const analytics = getAnalytics(initializeApp(firebaseConfig));
+  if (analytics) {
+    logEvent(analytics ,'screen_view');
+  }
 }
 
 export default function App() {
