@@ -5,6 +5,8 @@ import {
   getPointResult,
 } from '~/commons/calculation';
 import { countriesInId } from '~/commons/country-names-id';
+// import Confetti from '../confetti';
+import Realistic from "react-canvas-confetti/dist/presets/realistic";
 type Ranking = {
   rankingItem: { countryCode: string; name: string; totalPoints: number, rank: number };
   tag: { id: string };
@@ -52,6 +54,7 @@ export default function Hero() {
   const [resultLabel, setResultLabel] = useState('imbang');
 
   const [matchRankResult, setMatchRankResult] = useState({});
+  const [isExploding, setIsExploding] = useState(false);
 
   const matchTypes = getMatchTypes();
   const {countryOptions, countryPoints} = createCountryOptions(parentData.data);
@@ -88,6 +91,9 @@ console.log(country1, country2, matchType);
   const handleCountryClick = (mr: string) => {
     if (mr === matchResult) {
       mr = 'draw';
+      setIsExploding(false);
+    } else {
+      setIsExploding(true);
     }
     setMatchResult(mr);
     a(mr);
@@ -349,6 +355,7 @@ console.log(country1, country2, matchType);
               <p className="text-center text-xs italic mb-4 text-neutral-600">Klik salah satu bendera</p>
 
               <div className="flex w-full">
+              {isExploding && <Realistic autorun={{ speed: 0.3 }} />}
                 <div
                   className={"focus:outline-none card p-4 "+getBgColor('countryOne', matchResult)+" rounded-box grid flex-grow place-items-center"}
                   onClick={()=>{
