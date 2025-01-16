@@ -1,5 +1,5 @@
-import { useLoaderData, Link } from '@remix-run/react';
-import { useState } from 'react';
+import { useLoaderData, Link, useSearchParams } from '@remix-run/react';
+import React, { useState } from 'react';
 import {
   getMatchTypes,
   getPointResult,
@@ -37,14 +37,42 @@ const getDiffPoint = (lastPoint: number, newPoint: number) => {
 };
 
 export default function Hero({rankings}) {
-  const [country1, setCountry1] = useState('');
-  const [country2, setCountry2] = useState('');
-  const [matchType, setMatchType] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  // console.log('searchParams', searchParams.get('matchType'));
+  const [matchType, setMatchType] = useState(searchParams.get('matchType'));
+  const [country1, setCountry1] = useState(searchParams.get('country1'));
+  const [country2, setCountry2] = useState(searchParams.get('country2'));
   const [teamOneWin, setTeamOneWin] = useState({});
   const [teamTwoWin, setTeamTwoWin] = useState({});
 
   const matchTypes = getMatchTypes();
   const countryOptions = createCountryOptions(rankings);
+
+  const a = () => {
+    const oneWin = getPointResult(
+      countryOptions,
+      country1,
+      country2,
+      'countryOne',
+      matchType
+    );
+    setTeamOneWin(oneWin);
+    const twoWin = getPointResult(
+      countryOptions,
+      country1,
+      country2,
+      'countryTwo',
+      matchType
+    );
+    setTeamTwoWin(twoWin);
+    document.getElementById('my_modal_5').showModal();
+  };
+
+  React.useEffect(()=> {
+    if (matchType && country1 && country2) {
+      a();
+    }
+  }, []);
 
   return (
     <div className="container">
@@ -119,23 +147,24 @@ export default function Hero({rankings}) {
                       <button
                         className="btn btn-primary inline-flex items-center justify-center rounded-md px-7 py-[14px] text-center font-medium text-white shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                         onClick={() => {
-                          const oneWin = getPointResult(
-                            countryOptions,
-                            country1,
-                            country2,
-                            'countryOne',
-                            matchType
-                          );
-                          setTeamOneWin(oneWin);
-                          const twoWin = getPointResult(
-                            countryOptions,
-                            country1,
-                            country2,
-                            'countryTwo',
-                            matchType
-                          );
-                          setTeamTwoWin(twoWin);
-                          document.getElementById('my_modal_5').showModal();
+                          // const oneWin = getPointResult(
+                          //   countryOptions,
+                          //   country1,
+                          //   country2,
+                          //   'countryOne',
+                          //   matchType
+                          // );
+                          // setTeamOneWin(oneWin);
+                          // const twoWin = getPointResult(
+                          //   countryOptions,
+                          //   country1,
+                          //   country2,
+                          //   'countryTwo',
+                          //   matchType
+                          // );
+                          // setTeamTwoWin(twoWin);
+                          // document.getElementById('my_modal_5').showModal();
+                          a();
                         }}
                         disabled={
                           !matchType || !country1 || !country2 ? 'disabled' : ''

@@ -1,4 +1,5 @@
 import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { useSearchParams } from '@remix-run/react';
 import React from 'react';
 import Hero from '~/components/homepage/hero';
 
