@@ -51,7 +51,7 @@ export default function Hero() {
 
   const [matchResult, setMatchResult] = useState('draw');
   const [matchPointResult, setMatchPointResult] = useState({});
-  const [resultLabel, setResultLabel] = useState('imbang');
+  const [resultLabel, setResultLabel] = useState('pertandingan imbang');
 
   const [matchRankResult, setMatchRankResult] = useState({});
   const [isExploding, setIsExploding] = useState(false);
@@ -98,11 +98,11 @@ console.log(country1, country2, matchType);
     setMatchResult(mr);
     a(mr);
     if (mr === 'countryOne') {
-      setResultLabel('dimenangkan '+ countriesInId[country1]['label']);
+      setResultLabel(countriesInId[country1]['label'] + ' menang');
     } else if (mr === 'countryTwo') {
-      setResultLabel('dimenangkan '+ countriesInId[country2]['label']);
+      setResultLabel(countriesInId[country2]['label'] + ' menang');
     } else {
-      setResultLabel('imbang');
+      setResultLabel('pertandingan imbang');
     }
   };
 
@@ -350,7 +350,7 @@ console.log(country1, country2, matchType);
           {matchType && country1 && country2 && matchRankResult ? (
             <>
               <h1 className="text-center text-xl text-sky-900 font-bold capitalize">
-                Pertandingan {resultLabel}
+                {resultLabel}
               </h1>
               <p className="text-center text-xs italic mb-4 text-neutral-600">Klik salah satu bendera</p>
 
@@ -377,7 +377,6 @@ console.log(country1, country2, matchType);
                     {countriesInId[country1]['label']}
                   </h1>
                   <p className="text-xs text-sky-800">Peringkat #{countryOptions[country1]['rank']}</p>
-                  <p className="text-xs text-sky-800">Federasi {countryOptions[country1]['tag']}</p>
                 </div>
                 <div className="divider divider-horizontal">Vs</div>
                 <div
@@ -401,7 +400,6 @@ console.log(country1, country2, matchType);
                     {countriesInId[country2]['label']}
                   </h1>
                   <p className="text-xs text-sky-800">Peringkat #{countryOptions[country2]['rank']}</p>
-                  <p className="text-xs text-sky-800">Federasi {countryOptions[country2]['tag']}</p>
                 </div>
               </div>
 
@@ -411,12 +409,12 @@ console.log(country1, country2, matchType);
                 <div className="grid flex-grow place-items-center">
                   <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
                     <div className="stat place-items-center">
-                      <div className={"stat-figure " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>
+                      {/* <div className={"stat-figure " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>
                         {getStatFigure(
                           countryOptions[country1]['point'],
                           matchPointResult['resultTeamOne']
                         )}
-                      </div>
+                      </div> */}
                       <div className={"stat-title capitalize " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>Poin {countriesInId[country1]['label']}</div>
                       <div className={"stat-value " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>
                         {getDiffPoint(
@@ -427,12 +425,12 @@ console.log(country1, country2, matchType);
                       <div className={"stat-desc capitalize " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>{getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).label}</div>
                     </div>
                     <div className="stat place-items-center">
-                      <div className={"stat-figure " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>
+                      {/* <div className={"stat-figure " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>
                         {getStatFigure(
                           countryOptions[country2]['point'],
                           matchPointResult['resultTeamTwo']
                         )}
-                      </div>
+                      </div> */}
                       <div className={"stat-title capitalize " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>Poin {countriesInId[country2]['label']}</div>
                       <div className={"stat-value " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>
                         {getDiffPoint(
@@ -456,9 +454,9 @@ console.log(country1, country2, matchType);
                 <div className="grid flex-grow place-items-center">
                   <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
                     <div className="stat place-items-center">
-                      <div className={"stat-figure " + getRankMeta(country1, 'textColor')}>
+                      {/* <div className={"stat-figure " + getRankMeta(country1, 'textColor')}>
                         {getRankMeta(country1, 'icon')}
-                      </div>
+                      </div> */}
                       <div className={"stat-title capitalize " + getRankMeta(country1, 'textColor')}>Peringkat {countriesInId[country1]['label']}</div>
                       <div className={"stat-value " + getRankMeta(country1, 'textColor')}>
                         #{getRankMeta(country1, 'newRank')}
@@ -468,9 +466,9 @@ console.log(country1, country2, matchType);
                       </div>
                     </div>
                     <div className="stat place-items-center">
-                      <div className={"stat-figure " + getRankMeta(country2, 'textColor')}>
+                      {/* <div className={"stat-figure " + getRankMeta(country2, 'textColor')}>
                         {getRankMeta(country2, 'icon')}
-                      </div>
+                      </div> */}
                       <div className={"stat-title capitalize " + getRankMeta(country2, 'textColor')}>Peringkat {countriesInId[country2]['label']}</div>
                       <div className={"stat-value " + getRankMeta(country2, 'textColor')}>
                         #{getRankMeta(country2, 'newRank')}
