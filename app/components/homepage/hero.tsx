@@ -358,7 +358,9 @@ export default function Hero() {
       <dialog id="my_modal_5" className="modal">
         <div
         style={{
-          backgroundImage:`url("/images/card-bg/${Math.floor(Math.random() * 3)}.jpg")`
+          backgroundImage:`url("/images/card-bg/${Math.floor(Math.random() * 3)}.jpg")`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
         }}
         className="modal-box w-full">
           <form method="dialog">
