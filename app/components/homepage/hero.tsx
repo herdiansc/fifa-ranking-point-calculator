@@ -1,9 +1,10 @@
 import { useLoaderData, Link, useSearchParams, useLocation } from '@remix-run/react';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { getMatchTypes, getPointResult } from '~/commons/calculation';
 import { countriesInId } from '~/commons/country-names-id';
 // import Confetti from '../confetti';
 import Realistic from 'react-canvas-confetti/dist/presets/realistic';
+import { toJpeg } from 'html-to-image';
 type Ranking = {
   rankingItem: {
     countryCode: string;
@@ -257,12 +258,46 @@ export default function Hero() {
       : '';
   };
 
+  const ref = useRef<HTMLDivElement>(null)
+
+  const onDownloadClick = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
+
+    toJpeg(ref.current, { cacheBust: true, })
+      .then(async (dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'my-image-name.jpeg'
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref])
+
   return (
     <div className="container">
       <div className="-mx-4 flex flex-wrap items-center">
         <div className="hero">
           <div className="hero-content text-center">
             <div className="mx-auto max-w-[780px]">
+              <div className="place-items-center">
+              <div className="place-items-center mb-2 w-fit flex border-black border border-sky-200 rounded-2xl p-1 px-2">
+                <div>
+                  <img
+                    className="mask mask-circle"
+                    width={30}
+                    src={'/images/flags/id.svg'}
+                    alt={'flag of indonesia'}
+                  />
+                </div>
+                <div className="capitalize text-xs">
+                  Peringkat Timnas {countryOptions['IDN']['name']} Saat Ini #{countryOptions['IDN']['rank']}
+                </div>
+              </div>
+              </div>
               <h1 className="mb-6 text-5xl font-bold text-sky-900">
                 Hitung Poin Peringkat FIFA
               </h1>
@@ -354,6 +389,7 @@ export default function Hero() {
 
       <dialog id="my_modal_5" className="modal">
         <div
+        ref={ref}
         style={{
           backgroundImage:`url("/images/card-bg/${Math.floor(Math.random() * 9)}.jpg")`,
           backgroundPosition: 'center',
@@ -614,7 +650,8 @@ export default function Hero() {
 
               <p className="text-white text-[0.60rem] text-neutral-500 italic text-center">
                 * Asumsi tim lain belum bertanding<br />
-                {parentData.domain}
+                {parentData.domain}<br />
+                <button className="btn btn-primary text-white btn-xs mt-2" onClick={() => onDownloadClick() }>Unduh Gambar</button>
               </p>
             </>
           ) : (
