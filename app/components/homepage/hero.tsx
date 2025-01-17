@@ -16,6 +16,7 @@ type Ranking = {
 type ParentData = {
   data: CountryRank;
   baseUrl: string;
+  domain: string;
 };
 type CountryRank = {
   rankings: Ranking[];
@@ -117,7 +118,7 @@ export default function Hero() {
 
   const getBgColor = (curTeam: string, mr: string) => {
     if (mr === 'draw') {
-      return 'bg-neutral-200';
+      return 'bg-white';
     }
     if (curTeam === mr) {
       return 'bg-green-300';
@@ -355,7 +356,11 @@ export default function Hero() {
       </div>
 
       <dialog id="my_modal_5" className="modal">
-        <div className="modal-box w-full">
+        <div
+        style={{
+          backgroundImage:`url("/images/card-bg/${Math.floor(Math.random() * 3)}.jpg")`
+        }}
+        className="modal-box w-full">
           <form method="dialog">
             <button className="visible lg:invisible btn btn-sm btn-circle btn-ghost absolute right-3 top-3">
               ✕
@@ -363,10 +368,10 @@ export default function Hero() {
           </form>
           {matchType && country1 && country2 && matchRankResult ? (
             <>
-              <h1 className="text-center text-xl text-sky-900 font-bold capitalize">
+              <h1 className="text-center text-xl text-white font-bold capitalize">
                 {resultLabel}
               </h1>
-              <p className="text-center text-xs italic mb-4 text-neutral-600">
+              <p className="text-center text-xs italic mb-4 text-white font-bold">
                 Klik salah satu bendera
               </p>
 
@@ -376,7 +381,7 @@ export default function Hero() {
                   className={
                     'focus:outline-none card p-4 ' +
                     getBgColor('countryOne', matchResult) +
-                    ' rounded-box grid flex-grow place-items-center'
+                    ' rounded-box grid flex-grow place-items-center bg-opacity-50'
                   }
                   onClick={() => {
                     handleCountryClick('countryOne');
@@ -399,10 +404,10 @@ export default function Hero() {
                     }
                     alt={'flag of ' + countriesInId[country1]['label']}
                   />
-                  <h1 className="text-2xl text-sky-900 text-center capitalize">
+                  <h1 className="text-2xl bg-white text-sky-900 px-2 mt-2 font-bold text-center capitalize">
                     {countriesInId[country1]['label']}
                   </h1>
-                  <p className="text-xs text-sky-800">
+                  <p className="text-xs text-white font-bold">
                     Peringkat #{countryOptions[country1]['rank']}
                   </p>
                 </div>
@@ -411,7 +416,7 @@ export default function Hero() {
                   className={
                     'focus:outline-none card p-4 ' +
                     getBgColor('countryTwo', matchResult) +
-                    ' rounded-box grid flex-grow place-items-center'
+                    ' rounded-box grid flex-grow place-items-center bg-opacity-50'
                   }
                   onClick={() => {
                     handleCountryClick('countryTwo');
@@ -434,10 +439,10 @@ export default function Hero() {
                     }
                     alt={'flag of ' + countriesInId[country2]['label']}
                   />
-                  <h1 className="text-2xl text-sky-900 text-center capitalize">
+                  <h1 className="text-2xl bg-white text-sky-900 px-2 mt-2 font-bold text-center capitalize">
                     {countriesInId[country2]['label']}
                   </h1>
-                  <p className="text-xs text-sky-800">
+                  <p className="text-xs text-white font-bold">
                     Peringkat #{countryOptions[country2]['rank']}
                   </p>
                 </div>
@@ -445,12 +450,12 @@ export default function Hero() {
 
               <div className="grid grid-cols-2 gap-1 pb-4">
                 <div className="place-items-center py-2">
-                  <div className="text-center text-sky-900 capitalize">
+                  <div className="text-center text-white capitalize font-bold">
                     Statistik
                   </div>
                   <div className="flex w-full">
                     <div className="grid flex-grow place-items-center">
-                      <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
+                      <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md bg-opacity-80">
                         <div className="stat place-items-center">
                           <div
                             className={
@@ -466,15 +471,16 @@ export default function Hero() {
                               getRankMeta(country1, 'textColor')
                             }
                           >
-                            #{getRankMeta(country1, 'newRank')}
+                            #{getRankMeta(country1, 'newRank')}<sup>*</sup>
                           </div>
                           <div
                             className={
-                              'stat-desc capitalize text-xs ' +
+                              'stat-desc capitalize text-center ' +
                               getRankMeta(country1, 'textColor')
                             }
                           >
-                            {getRankMeta(country1, 'label')}
+                            <p className="text-xs">{getRankMeta(country1, 'label')}</p>
+                            <p className="text-[0.60rem] capitalize">{Math.abs(getRankMeta(country1, 'newRank') - countryOptions[country1]['rank'])} peringkat</p>
                           </div>
                         </div>
                         <div className={'stat place-items-center'}>
@@ -525,12 +531,12 @@ export default function Hero() {
                   </div>
                 </div>
                 <div className="place-items-center py-2">
-                  <div className="text-center text-sky-900 capitalize">
+                  <div className="text-center text-white capitalize font-bold">
                     Statistik
                   </div>
                   <div className="flex w-full">
                     <div className="grid flex-grow place-items-center">
-                      <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
+                      <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md bg-opacity-80">
                       <div className="stat place-items-center">
                           <div
                             className={
@@ -546,15 +552,16 @@ export default function Hero() {
                               getRankMeta(country2, 'textColor')
                             }
                           >
-                            #{getRankMeta(country2, 'newRank')}
+                            #{getRankMeta(country2, 'newRank')}<sup>*</sup>
                           </div>
                           <div
                             className={
-                              'stat-desc capitalize text-xs ' +
+                              'stat-desc capitalize text-center ' +
                               getRankMeta(country2, 'textColor')
                             }
                           >
-                            {getRankMeta(country2, 'label')}
+                            <p className="text-xs">{getRankMeta(country2, 'label')}</p>
+                            <p className="text-[0.60rem] capitalize">{Math.abs(getRankMeta(country2, 'newRank') - countryOptions[country2]['rank'])} peringkat</p>                            
                           </div>
                         </div>
                         <div className="stat place-items-center">
@@ -606,8 +613,10 @@ export default function Hero() {
                 </div>
               </div>
 
-              <p className="text-xs text-neutral-500 italic">* Asumsi tim lain belum bertanding</p>
-              <p className="text-xs text-neutral-500 underline-offset-4">aa</p>
+              <p className="text-white text-[0.60rem] text-neutral-500 italic text-center">
+                * Asumsi tim lain belum bertanding<br />
+                {parentData.domain}
+              </p>
             </>
           ) : (
             ''
