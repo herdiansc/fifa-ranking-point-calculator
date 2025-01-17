@@ -1,14 +1,16 @@
-import { useLoaderData, Link, useSearchParams } from '@remix-run/react';
+import { useLoaderData, Link, useSearchParams, useLocation } from '@remix-run/react';
 import React, { useState } from 'react';
-import {
-  getMatchTypes,
-  getPointResult,
-} from '~/commons/calculation';
+import { getMatchTypes, getPointResult } from '~/commons/calculation';
 import { countriesInId } from '~/commons/country-names-id';
 // import Confetti from '../confetti';
-import Realistic from "react-canvas-confetti/dist/presets/realistic";
+import Realistic from 'react-canvas-confetti/dist/presets/realistic';
 type Ranking = {
-  rankingItem: { countryCode: string; name: string; totalPoints: number, rank: number };
+  rankingItem: {
+    countryCode: string;
+    name: string;
+    totalPoints: number;
+    rank: number;
+  };
   tag: { id: string };
 };
 type ParentData = {
@@ -19,13 +21,16 @@ type CountryRank = {
   rankings: Ranking[];
 };
 type CountryOptions = {
-  [key: string]: { name: string; point: number; rank: number; tag: string; };
+  [key: string]: { name: string; point: number; rank: number; tag: string };
 };
 const createCountryOptions = (countryRank: CountryRank) => {
   const countryOptions: CountryOptions = {};
   const countryPoints: number[] = [];
   countryRank.rankings.map((item) => {
-    const name = item.rankingItem.countryCode in countriesInId ? countriesInId[item.rankingItem.countryCode]['label'] : item.rankingItem.name;
+    const name =
+      item.rankingItem.countryCode in countriesInId
+        ? countriesInId[item.rankingItem.countryCode]['label']
+        : item.rankingItem.name;
     countryOptions[item.rankingItem.countryCode] = {
       name: name,
       point: item.rankingItem.totalPoints,
@@ -34,7 +39,7 @@ const createCountryOptions = (countryRank: CountryRank) => {
     };
     countryPoints.push(item.rankingItem.totalPoints);
   });
-  return {countryOptions, countryPoints};
+  return { countryOptions, countryPoints };
 };
 
 const getDiffPoint = (lastPoint: number, newPoint: number) => {
@@ -45,7 +50,9 @@ const getDiffPoint = (lastPoint: number, newPoint: number) => {
 export default function Hero() {
   const parentData = useLoaderData() as ParentData;
   const [searchParams, setSearchParams] = useSearchParams();
-  const [matchType, setMatchType] = useState(searchParams.get('matchType') || '');
+  const [matchType, setMatchType] = useState(
+    searchParams.get('matchType') || ''
+  );
   const [country1, setCountry1] = useState(searchParams.get('country1') || '');
   const [country2, setCountry2] = useState(searchParams.get('country2') || '');
 
@@ -57,9 +64,11 @@ export default function Hero() {
   const [isExploding, setIsExploding] = useState(false);
 
   const matchTypes = getMatchTypes();
-  const {countryOptions, countryPoints} = createCountryOptions(parentData.data);
+  const { countryOptions, countryPoints } = createCountryOptions(
+    parentData.data
+  );
 
-console.log(country1, country2, matchType);
+  console.log(country1, country2, matchType);
 
   const a = (mr) => {
     const mpr = getPointResult(
@@ -80,7 +89,7 @@ console.log(country1, country2, matchType);
   };
 
   console.log('000');
-  React.useEffect(()=> {
+  React.useEffect(() => {
     console.log('AAA');
     if (matchType && country1 && country2) {
       console.log('BBB');
@@ -118,10 +127,12 @@ console.log(country1, country2, matchType);
 
   const getStatFigure = (lastPoint: number, newPoint: number) => {
     // increase
-    let dPath = "M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"; 
+    let dPath =
+      'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
     if (lastPoint >= newPoint) {
       // decrease or stay
-      dPath = "M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181"; 
+      dPath =
+        'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
     }
     return (
       <svg
@@ -132,11 +143,7 @@ console.log(country1, country2, matchType);
         stroke="currentColor"
         className="inline-block h-8 w-8"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d={dPath}
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d={dPath} />
       </svg>
     );
   };
@@ -144,12 +151,12 @@ console.log(country1, country2, matchType);
   const getStatDiff = (lastPoint: number, newPoint: number) => {
     let ret = {
       label: 'naik',
-      color: 'text-green-700'
+      color: 'text-green-700',
     };
     if (lastPoint >= newPoint) {
       ret = {
         label: 'turun',
-        color: 'text-rose-700'
+        color: 'text-rose-700',
       };
     }
     return ret;
@@ -165,7 +172,10 @@ console.log(country1, country2, matchType);
       if (value.point > mpr['resultTeamTwo']) {
         newRankTwo++;
       }
-      if (value.point < mpr['resultTeamOne'] && value.point < mpr['resultTeamTwo']) {
+      if (
+        value.point < mpr['resultTeamOne'] &&
+        value.point < mpr['resultTeamTwo']
+      ) {
         break;
       }
     }
@@ -176,12 +186,14 @@ console.log(country1, country2, matchType);
     if (countryOptions[country1]['rank'] < newRankOne) {
       labelOne = 'turun';
       textColorOne = 'text-rose-700';
-      iconOne = 'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
+      iconOne =
+        'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
     }
     if (countryOptions[country1]['rank'] > newRankOne) {
       labelOne = 'naik';
       textColorOne = 'text-green-700';
-      iconOne = 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
+      iconOne =
+        'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
     }
 
     let labelTwo = 'tetap';
@@ -190,12 +202,14 @@ console.log(country1, country2, matchType);
     if (countryOptions[country2]['rank'] < newRankTwo) {
       labelTwo = 'turun';
       textColorTwo = 'text-rose-700';
-      iconTwo = 'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
+      iconTwo =
+        'M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181';
     }
     if (countryOptions[country2]['rank'] > newRankTwo) {
       labelTwo = 'naik';
       textColorTwo = 'text-green-700';
-      iconTwo = 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
+      iconTwo =
+        'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941';
     }
 
     return {
@@ -212,11 +226,7 @@ console.log(country1, country2, matchType);
             stroke="currentColor"
             className="inline-block h-8 w-8"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d={iconOne}
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d={iconOne} />
           </svg>
         ),
       },
@@ -233,20 +243,18 @@ console.log(country1, country2, matchType);
             stroke="currentColor"
             className="inline-block h-8 w-8"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d={iconTwo}
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d={iconTwo} />
           </svg>
         ),
-      }
+      },
     };
   };
 
   const getRankMeta = (countryCode: string, key: string) => {
-    return countryCode in matchRankResult ? matchRankResult[countryCode][key] : '';
-  }
+    return countryCode in matchRankResult
+      ? matchRankResult[countryCode][key]
+      : '';
+  };
 
   return (
     <div className="container">
@@ -261,7 +269,8 @@ console.log(country1, country2, matchType);
                 Pertandingan Berikut Ini
               </h2>
               <p className="mx-auto mb-9 max-w-[600px] text-base font-medium text-sky-900 sm:text-lg sm:leading-[1.44]">
-                Pilih negara yang akan bertanding dan hitung perolehan poin<br />
+                Pilih negara yang akan bertanding dan hitung perolehan poin
+                <br />
                 peringkat fifa setelahnya jika salah satu menang atau draw.
               </p>
               <select
@@ -289,7 +298,7 @@ console.log(country1, country2, matchType);
                     {Object.keys(countryOptions).map((key) => {
                       return (
                         <option key={key} value={key} className="capitalize">
-                          { countryOptions[key]['name'] }
+                          {countryOptions[key]['name']}
                         </option>
                       );
                     })}
@@ -306,7 +315,7 @@ console.log(country1, country2, matchType);
                     {Object.keys(countryOptions).map((key) => {
                       return (
                         <option key={key} value={key} className="capitalize">
-                          { countryOptions[key]['name'] }
+                          {countryOptions[key]['name']}
                         </option>
                       );
                     })}
@@ -322,9 +331,9 @@ console.log(country1, country2, matchType);
                         className="btn btn-primary inline-flex items-center justify-center rounded-md px-7 py-[14px] text-center font-medium text-white shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                         onClick={() => {
                           const params = new URLSearchParams();
-                          params.set("matchType", matchType);
-                          params.set("country1", country1);
-                          params.set("country2", country2);
+                          params.set('matchType', matchType);
+                          params.set('country1', country1);
+                          params.set('country2', country2);
                           setSearchParams(params, {
                             preventScrollReset: true,
                           });
@@ -345,142 +354,260 @@ console.log(country1, country2, matchType);
         </div>
       </div>
 
-      <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
-        <div className="modal-box">
+      <dialog id="my_modal_5" className="modal">
+        <div className="modal-box w-full">
+          <form method="dialog">
+            <button className="visible lg:invisible btn btn-sm btn-circle btn-ghost absolute right-3 top-3">
+              ✕
+            </button>
+          </form>
           {matchType && country1 && country2 && matchRankResult ? (
             <>
               <h1 className="text-center text-xl text-sky-900 font-bold capitalize">
                 {resultLabel}
               </h1>
-              <p className="text-center text-xs italic mb-4 text-neutral-600">Klik salah satu bendera</p>
+              <p className="text-center text-xs italic mb-4 text-neutral-600">
+                Klik salah satu bendera
+              </p>
 
               <div className="flex w-full">
-              {isExploding && <Realistic autorun={{ speed: 0.3 }} />}
+                {isExploding && <Realistic autorun={{ speed: 0.3 }} />}
                 <div
-                  className={"focus:outline-none card p-4 "+getBgColor('countryOne', matchResult)+" rounded-box grid flex-grow place-items-center"}
-                  onClick={()=>{
-                    handleCountryClick("countryOne")
+                  className={
+                    'focus:outline-none card p-4 ' +
+                    getBgColor('countryOne', matchResult) +
+                    ' rounded-box grid flex-grow place-items-center'
+                  }
+                  onClick={() => {
+                    handleCountryClick('countryOne');
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 13 || event.key == 32) {
-                      handleCountryClick("countryOne");
+                      handleCountryClick('countryOne');
                     }
                   }}
-                  role="button" 
+                  role="button"
                   tabIndex={0}
                 >
                   <img
-                    className="mask mask-hexagon" 
+                    className="mask mask-hexagon"
                     width={150}
-                    src={'/images/flags/' + countriesInId[country1]['code2'].toLowerCase() + '.svg'} alt={'flag of ' + countriesInId[country1]['label']} />
+                    src={
+                      '/images/flags/' +
+                      countriesInId[country1]['code2'].toLowerCase() +
+                      '.svg'
+                    }
+                    alt={'flag of ' + countriesInId[country1]['label']}
+                  />
                   <h1 className="text-2xl text-sky-900 text-center capitalize">
                     {countriesInId[country1]['label']}
                   </h1>
-                  <p className="text-xs text-sky-800">Peringkat #{countryOptions[country1]['rank']}</p>
+                  <p className="text-xs text-sky-800">
+                    Peringkat #{countryOptions[country1]['rank']}
+                  </p>
                 </div>
                 <div className="divider divider-horizontal">Vs</div>
                 <div
-                  className={"focus:outline-none card p-4 "+getBgColor('countryTwo', matchResult)+" rounded-box grid flex-grow place-items-center"}
-                  onClick={()=>{
-                    handleCountryClick("countryTwo")
+                  className={
+                    'focus:outline-none card p-4 ' +
+                    getBgColor('countryTwo', matchResult) +
+                    ' rounded-box grid flex-grow place-items-center'
+                  }
+                  onClick={() => {
+                    handleCountryClick('countryTwo');
                   }}
                   onKeyDown={(event) => {
                     if (event.key === 13 || event.key == 32) {
-                      handleCountryClick("countryTwo");
+                      handleCountryClick('countryTwo');
                     }
                   }}
-                  role="button" 
+                  role="button"
                   tabIndex={0}
                 >
                   <img
-                    className="mask mask-hexagon" 
+                    className="mask mask-hexagon"
                     width={150}
-                    src={'/images/flags/' + countriesInId[country2]['code2'].toLowerCase() + '.svg'} alt={'flag of ' + countriesInId[country2]['label']} />
+                    src={
+                      '/images/flags/' +
+                      countriesInId[country2]['code2'].toLowerCase() +
+                      '.svg'
+                    }
+                    alt={'flag of ' + countriesInId[country2]['label']}
+                  />
                   <h1 className="text-2xl text-sky-900 text-center capitalize">
                     {countriesInId[country2]['label']}
                   </h1>
-                  <p className="text-xs text-sky-800">Peringkat #{countryOptions[country2]['rank']}</p>
+                  <p className="text-xs text-sky-800">
+                    Peringkat #{countryOptions[country2]['rank']}
+                  </p>
                 </div>
               </div>
 
-              <div className="text-center my-4 text-sky-900 capitalize">Perubahan Poin</div>
-
-              <div className="flex w-full mt-4">
-                <div className="grid flex-grow place-items-center">
-                  <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
-                    <div className="stat place-items-center">
-                      {/* <div className={"stat-figure " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>
-                        {getStatFigure(
-                          countryOptions[country1]['point'],
-                          matchPointResult['resultTeamOne']
-                        )}
-                      </div> */}
-                      <div className={"stat-title capitalize " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>Poin {countriesInId[country1]['label']}</div>
-                      <div className={"stat-value " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>
-                        {getDiffPoint(
-                          countryOptions[country1]['point'],
-                          matchPointResult['resultTeamOne']
-                        )}
+              <div className="grid grid-cols-2 gap-1 pb-4">
+                <div className="place-items-center py-2">
+                  <div className="text-center text-sky-900 capitalize">
+                    Statistik
+                  </div>
+                  <div className="flex w-full">
+                    <div className="grid flex-grow place-items-center">
+                      <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
+                        <div className="stat place-items-center">
+                          <div
+                            className={
+                              'stat-title capitalize text-sm ' +
+                              getRankMeta(country1, 'textColor')
+                            }
+                          >
+                            Peringkat
+                          </div>
+                          <div
+                            className={
+                              'stat-value text-lg ' +
+                              getRankMeta(country1, 'textColor')
+                            }
+                          >
+                            #{getRankMeta(country1, 'newRank')}
+                          </div>
+                          <div
+                            className={
+                              'stat-desc capitalize text-xs ' +
+                              getRankMeta(country1, 'textColor')
+                            }
+                          >
+                            {getRankMeta(country1, 'label')}
+                          </div>
+                        </div>
+                        <div className={'stat place-items-center'}>
+                          <div
+                            className={
+                              'stat-title capitalize text-sm ' +
+                              getStatDiff(
+                                countryOptions[country1]['point'],
+                                matchPointResult['resultTeamOne']
+                              ).color
+                            }
+                          >
+                            Poin
+                          </div>
+                          <div
+                            className={
+                              'stat-value text-lg ' +
+                              getStatDiff(
+                                countryOptions[country1]['point'],
+                                matchPointResult['resultTeamOne']
+                              ).color
+                            }
+                          >
+                            {getDiffPoint(
+                              countryOptions[country1]['point'],
+                              matchPointResult['resultTeamOne']
+                            )}
+                          </div>
+                          <div
+                            className={
+                              'stat-desc capitalize text-xs ' +
+                              getStatDiff(
+                                countryOptions[country1]['point'],
+                                matchPointResult['resultTeamOne']
+                              ).color
+                            }
+                          >
+                            {
+                              getStatDiff(
+                                countryOptions[country1]['point'],
+                                matchPointResult['resultTeamOne']
+                              ).label
+                            }
+                          </div>
+                        </div>
                       </div>
-                      <div className={"stat-desc capitalize " + getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).color}>{getStatDiff(countryOptions[country1]['point'], matchPointResult['resultTeamOne']).label}</div>
                     </div>
-                    <div className="stat place-items-center">
-                      {/* <div className={"stat-figure " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>
-                        {getStatFigure(
-                          countryOptions[country2]['point'],
-                          matchPointResult['resultTeamTwo']
-                        )}
-                      </div> */}
-                      <div className={"stat-title capitalize " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>Poin {countriesInId[country2]['label']}</div>
-                      <div className={"stat-value " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>
-                        {getDiffPoint(
-                          countryOptions[country2]['point'],
-                          matchPointResult['resultTeamTwo']
-                        )}
+                  </div>
+                </div>
+                <div className="place-items-center py-2">
+                  <div className="text-center text-sky-900 capitalize">
+                    Statistik
+                  </div>
+                  <div className="flex w-full">
+                    <div className="grid flex-grow place-items-center">
+                      <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
+                      <div className="stat place-items-center">
+                          <div
+                            className={
+                              'stat-title capitalize text-sm ' +
+                              getRankMeta(country2, 'textColor')
+                            }
+                          >
+                            Peringkat
+                          </div>
+                          <div
+                            className={
+                              'stat-value text-lg ' +
+                              getRankMeta(country2, 'textColor')
+                            }
+                          >
+                            #{getRankMeta(country2, 'newRank')}
+                          </div>
+                          <div
+                            className={
+                              'stat-desc capitalize text-xs ' +
+                              getRankMeta(country2, 'textColor')
+                            }
+                          >
+                            {getRankMeta(country2, 'label')}
+                          </div>
+                        </div>
+                        <div className="stat place-items-center">
+                          <div
+                            className={
+                              'stat-title capitalize text-sm ' +
+                              getStatDiff(
+                                countryOptions[country2]['point'],
+                                matchPointResult['resultTeamTwo']
+                              ).color
+                            }
+                          >
+                            Poin
+                          </div>
+                          <div
+                            className={
+                              'stat-value text-lg ' +
+                              getStatDiff(
+                                countryOptions[country2]['point'],
+                                matchPointResult['resultTeamTwo']
+                              ).color
+                            }
+                          >
+                            {getDiffPoint(
+                              countryOptions[country2]['point'],
+                              matchPointResult['resultTeamTwo']
+                            )}
+                          </div>
+                          <div
+                            className={
+                              'stat-desc capitalize text-xs ' +
+                              getStatDiff(
+                                countryOptions[country2]['point'],
+                                matchPointResult['resultTeamTwo']
+                              ).color
+                            }
+                          >
+                            {
+                              getStatDiff(
+                                countryOptions[country2]['point'],
+                                matchPointResult['resultTeamTwo']
+                              ).label
+                            }
+                          </div>
+                        </div>
                       </div>
-                      <div className={"stat-desc capitalize " + getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).color}>{getStatDiff(countryOptions[country2]['point'], matchPointResult['resultTeamTwo']).label}</div>
                     </div>
                   </div>
                 </div>
               </div>
 
-                      
-              <div className="text-center my-4 text-sky-900 capitalize">
-                Perubahan Peringkat
-                <p className="text-center text-xs italic mb-4 text-neutral-600">Asumsi tim lain belum bertanding</p>
-              </div>
-
-              <div className="flex w-full mt-4">
-                <div className="grid flex-grow place-items-center">
-                  <div className="stats stats-vertical lg:stats-horizontal shadow drop-shadow-md">
-                    <div className="stat place-items-center">
-                      {/* <div className={"stat-figure " + getRankMeta(country1, 'textColor')}>
-                        {getRankMeta(country1, 'icon')}
-                      </div> */}
-                      <div className={"stat-title capitalize " + getRankMeta(country1, 'textColor')}>Peringkat {countriesInId[country1]['label']}</div>
-                      <div className={"stat-value " + getRankMeta(country1, 'textColor')}>
-                        #{getRankMeta(country1, 'newRank')}
-                      </div>
-                      <div className={"stat-desc capitalize " + getRankMeta(country1, 'textColor')}>
-                        {getRankMeta(country1, 'label')}
-                      </div>
-                    </div>
-                    <div className="stat place-items-center">
-                      {/* <div className={"stat-figure " + getRankMeta(country2, 'textColor')}>
-                        {getRankMeta(country2, 'icon')}
-                      </div> */}
-                      <div className={"stat-title capitalize " + getRankMeta(country2, 'textColor')}>Peringkat {countriesInId[country2]['label']}</div>
-                      <div className={"stat-value " + getRankMeta(country2, 'textColor')}>
-                        #{getRankMeta(country2, 'newRank')}
-                      </div>
-                      <div className={"stat-desc capitalize " + getRankMeta(country2, 'textColor')}>
-                        {getRankMeta(country2, 'label')}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              <p className="text-xs text-neutral-500 italic">* Asumsi tim lain belum bertanding</p>
+              <p className="text-xs text-neutral-500 underline-offset-4">aa</p>
             </>
           ) : (
             ''
