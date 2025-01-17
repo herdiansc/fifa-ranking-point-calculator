@@ -266,9 +266,6 @@ export default function Hero() {
               <h1 className="mb-6 text-5xl font-bold text-sky-900">
                 Hitung Poin Peringkat FIFA
               </h1>
-              <h2 className="mb-6 text-3xl text-sky-900">
-                Pertandingan Berikut Ini
-              </h2>
               <p className="mx-auto mb-9 max-w-[600px] text-base font-medium text-sky-900 sm:text-lg sm:leading-[1.44]">
                 Pilih negara yang akan bertanding dan hitung perolehan poin
                 <br />
@@ -358,7 +355,7 @@ export default function Hero() {
       <dialog id="my_modal_5" className="modal">
         <div
         style={{
-          backgroundImage:`url("/images/card-bg/${Math.floor(Math.random() * 3)}.jpg")`,
+          backgroundImage:`url("/images/card-bg/${Math.floor(Math.random() * 9)}.jpg")`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}
