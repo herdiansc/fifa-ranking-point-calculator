@@ -30,7 +30,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="font-sans">
+      <body className="font-sans flex flex-col min-h-screen">
         <Outlet />
         <Scripts />
       </body>

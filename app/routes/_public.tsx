@@ -36,7 +36,8 @@ export default function PublicLayout() {
           <div style={{ justifySelf: 'center' }}>
             <div className="w-60 max-w-full px-4">
               <a href="/" className="text-center text-2xl block w-full py-5">
-                <span className="text-primary font-light">Peringkat</span> <span className="text-sky-900 font-extrabold">FIFA</span>
+                <span className="text-primary font-light">Peringkat</span>{' '}
+                <span className="text-sky-900 font-extrabold">FIFA</span>
               </a>
             </div>
           </div>
@@ -45,55 +46,26 @@ export default function PublicLayout() {
 
       <Outlet />
 
-      {/* <footer
-        className="wow fadeInUp relative z-10 dark:bg-dark"
-        data-wow-delay=".15s"
-      >
-        <div className="border-t border-[#8890A4] border-opacity-40 py-8">
-          <div className="container">
-            <div className="-mx-4 flex flex-wrap">
-              <div className="w-full px-4 md:w-2/3 lg:w-1/2">
-                <div className="my-1">
-                  <div className="-mx-3 flex items-center justify-center md:justify-start">
-                    <a
-                      href="/"
-                      className="px-3 text-base text-gray-800 hover:text-white hover:underline"
-                    >
-                      Privacy policy
-                    </a>
-                    <a
-                      href="/"
-                      className="px-3 text-base text-gray-800 hover:text-white hover:underline"
-                    >
-                      Legal notice
-                    </a>
-                    <a
-                      href="/"
-                      className="px-3 text-base text-gray-800 hover:text-white hover:underline"
-                    >
-                      Terms of service
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full px-4 md:w-1/3 lg:w-1/2">
-                <div className="my-1 flex justify-center md:justify-end">
-                  <p className="text-base text-gray-800">
-                    Designed and Developed by
-                    <a
-                      href="https://tailgrids.com"
-                      rel="nofollow noopner"
-                      className="text-gray-800 hover:underline"
-                    >
-                      TailGrids and UIdeck
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <footer className="gap-y-2 footer footer-center text-base-content rounded p-3 mt-auto">
+        <div>
+          <p className="text-xs">Kunjungi Aplikasi Lainnya:</p>
+          <nav className="grid grid-flow-col gap-4">
+            <a
+              className="link link-hover" target="_blank" rel="noreferrer"
+              href="https://play.google.com/store/apps/details?id=com.waroong.android&hl=en"
+            >
+              Waroong
+            </a>
+            <a
+              className="link link-hover" target="_blank" rel="noreferrer"
+              href="https://play.google.com/store/apps/details?id=com.oowang.android&hl=en"
+            >
+              Oowang
+            </a>
+          </nav>
         </div>
-      </footer> */}
+        <aside></aside>
+      </footer>
     </>
   );
 }
