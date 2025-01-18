@@ -294,17 +294,16 @@ export default function Hero() {
                   />
                 </div>
                 <div className="capitalize text-xs">
-                  Peringkat Timnas {countryOptions['IDN']['name']} Saat Ini #{countryOptions['IDN']['rank']}
+                  Peringkat FIFA Timnas {countryOptions['IDN']['name']}: #{countryOptions['IDN']['rank']}
                 </div>
               </div>
               </div>
-              <h1 className="mb-6 text-5xl font-bold text-sky-900">
-                Hitung Poin Peringkat FIFA
+              <h1 className="mb-3 text-5xl font-bold text-sky-900">
+                Hitung Peringkat FIFA
               </h1>
-              <p className="mx-auto mb-9 max-w-[600px] text-base font-medium text-sky-900 sm:text-lg sm:leading-[1.44]">
-                Pilih negara yang akan bertanding dan hitung perolehan poin
-                <br />
-                peringkat fifa setelahnya jika salah satu menang atau draw.
+              <p className="mx-auto mb-4 max-w-[600px] text-base font-medium text-sky-900 sm:text-lg sm:leading-[1.44]">
+                Pilih negara yang akan bertanding<br />
+                Dan hitung perolehan poin dan peringkat fifa.
               </p>
               <select
                 className="select select-bordered select-sm max-w-xs"
@@ -376,7 +375,7 @@ export default function Hero() {
                           !matchType || !country1 || !country2 ? 'disabled' : ''
                         }
                       >
-                        Lihat Perolehan Poin
+                        Hitung Poin dan Peringkat FIFA
                       </button>
                     </div>
                   </div>
