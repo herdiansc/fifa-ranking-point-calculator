@@ -6,7 +6,7 @@ export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
   theme: {
     fontFamily: {
-      sans: ['"Open Sans", sans-serif'] // Example with a custom font
+      roboto: ["Roboto", "sans-serif"],
     },
     container: {
       center: true,
