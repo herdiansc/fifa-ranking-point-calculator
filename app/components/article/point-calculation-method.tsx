@@ -10,7 +10,7 @@ export default function PointCalculationMethod(): React.ReactNode {
             <div className="w-full px-4">
               <div className="text-center">
                 <h1 className="mb-4 text-3xl font-bold text-sky-900 sm:text-4xl md:text-[40px] md:leading-[1.2]">
-                  Cara Penghitungan Poin dan Peringkat FIFA
+                  Cara Perhitungan Poin dan Peringkat FIFA
                 </h1>
                 <p className="mb-5 text-base text-body-color ">
                   Cara Menghitung Peringkat FIFA: Penjelasan Lengkap dan Contoh

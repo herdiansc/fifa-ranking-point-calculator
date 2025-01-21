@@ -41,7 +41,7 @@ export default function Index() {
     <>
       <div
         id="home"
-        className="relative overflow-hidden dark:bg-dark pt-[120px] md:pt-[130px] lg:pt-[160px]"
+        className="relative overflow-hidden pt-[120px]"
       >
         <Hero />
       </div>
