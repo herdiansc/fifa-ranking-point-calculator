@@ -61,10 +61,10 @@ export default function PublicLayout() {
               </li>
             </ul>
           </div>
-          <a href="/" className="text-center text-2xl block w-full">
+          <Link to="/" className="text-center text-2xl block w-full">
             <span className="text-primary font-light">Peringkat</span>{' '}
             <span className="text-sky-900 font-extrabold">FIFA</span>
-          </a>
+          </Link>
         </div>
         <div className="navbar-end"></div>
       </div>

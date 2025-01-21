@@ -23,7 +23,7 @@ export default function PointCalculationMethod() {
       <section className="pb-10 pt-20 dark:bg-dark lg:pb-20 lg:pt-[120px]">
         <div className="container">
           <div className="flex flex-wrap justify-center -mx-4">
-            <div className="w-full md:w-10/12 px-12">
+            <div className="w-full lg:w-10/12 px-6 lg:px-12">
                   <div>
                   <div className="markdown w-full break-words">
   <p className="mb-8 text-base text-body-color">Peringkat FIFA adalah sistem peringkat yang digunakan untuk menilai kinerja tim nasional sepak bola di seluruh dunia. Sistem ini diperbarui secara berkala dan menjadi acuan penting bagi penggemar sepak bola, pelatih, hingga asosiasi sepak bola internasional. Di artikel ini, kita akan membahas bagaimana cara menghitung peringkat FIFA dengan langkah-langkah yang sederhana dan mudah dipahami.</p>
