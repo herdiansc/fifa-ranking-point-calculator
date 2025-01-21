@@ -3279,11 +3279,6 @@ html{
   padding: 1.5rem;
 }
 
-.px-12{
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
-
 .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -3351,6 +3346,10 @@ html{
 
 .pt-\[120px\]{
   padding-top: 120px;
+}
+
+.pt-\[60px\]{
+  padding-top: 60px;
 }
 
 .text-center{
