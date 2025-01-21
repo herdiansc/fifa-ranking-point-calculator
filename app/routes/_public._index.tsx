@@ -39,10 +39,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <>
-      <div
-        id="home"
-        className="relative overflow-hidden pt-[120px]"
-      >
+      <div id="home" className="relative overflow-hidden my-auto">
         <Hero />
       </div>
     </>

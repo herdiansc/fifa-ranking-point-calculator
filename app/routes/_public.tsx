@@ -83,7 +83,8 @@ export default function PublicLayout() {
 
       <Outlet />
 
-      <footer className="gap-y-2 footer footer-center text-base-content rounded p-3 mt-auto">
+      {/* Add class to footer mt-auto to be always at the bottom */}
+      <footer className="gap-y-2 footer footer-center text-base-content rounded p-3">
         <div>
           <p className="text-xs">Kunjungi Aplikasi Lainnya:</p>
           <nav className="grid grid-flow-col gap-4">

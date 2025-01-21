@@ -50,7 +50,7 @@ export const loader: LoaderFunction = ({params}) => {
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
-    { title: data.title + '| Artikel' },
+    { title: data.title + ' | Artikel' },
     {
       name: 'description',
       content: data.description,

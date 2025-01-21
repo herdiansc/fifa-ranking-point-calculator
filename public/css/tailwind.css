@@ -2930,6 +2930,11 @@ html{
   margin-bottom: 2rem;
 }
 
+.my-auto{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .mb-10{
   margin-bottom: 2.5rem;
 }
@@ -3541,10 +3546,6 @@ html{
     padding-right: 60px;
   }
 
-  .md\:pt-\[130px\]{
-    padding-top: 130px;
-  }
-
   .md\:text-\[40px\]{
     font-size: 40px;
   }
@@ -3557,6 +3558,10 @@ html{
 @media (min-width: 1024px){
   .lg\:invisible{
     visibility: hidden;
+  }
+
+  .lg\:mt-auto{
+    margin-top: auto;
   }
 
   .lg\:w-10\/12{
@@ -3572,7 +3577,7 @@ html{
     padding-bottom: 5rem;
   }
 
-  .lg\:pt-\[160px\]{
-    padding-top: 160px;
+  .lg\:pt-\[120px\]{
+    padding-top: 120px;
   }
 }
