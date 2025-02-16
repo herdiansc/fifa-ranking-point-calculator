@@ -272,13 +272,12 @@ export default function Hero() {
                       <img
                         className="mask mask-circle"
                         width={30}
-                        src={'/images/flags/id.svg'}
-                        alt={'flag of indonesia'}
+                        src={'/images/flags/ar.svg'}
+                        alt={'flag of argentina'}
                       />
                     </div>
                     <div className="capitalize text-xs">
-                      Peringkat FIFA Timnas {countryOptions['IDN']['name']}: #
-                      {countryOptions['IDN']['rank']}
+                      Peringkat pertama saat ini adalah Argentina
                     </div>
                   </div>
                 </div>
