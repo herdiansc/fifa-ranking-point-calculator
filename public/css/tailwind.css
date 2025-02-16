@@ -3333,10 +3333,6 @@ html{
   padding-bottom: 60px;
 }
 
-.pt-\[120px\]{
-  padding-top: 120px;
-}
-
 .pt-\[60px\]{
   padding-top: 60px;
 }
@@ -3560,10 +3556,6 @@ html{
     visibility: hidden;
   }
 
-  .lg\:mt-auto{
-    margin-top: auto;
-  }
-
   .lg\:w-10\/12{
     width: 83.333333%;
   }
@@ -3575,9 +3567,5 @@ html{
 
   .lg\:pb-20{
     padding-bottom: 5rem;
-  }
-
-  .lg\:pt-\[120px\]{
-    padding-top: 120px;
   }
 }

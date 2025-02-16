@@ -27,11 +27,11 @@ export const loader: LoaderFunction = async () => {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Hitung Poin Peringkat FIFA' },
+    { title: 'Kalkulator Peringkat FIFA' },
     {
       name: 'description',
       content:
-        'Pilih negara yang akan bertanding dan hitung perolehan poin peringkat fifa setelahnya jika salah satu menang atau draw.',
+        'Pilih negara yang akan bertanding dan hitung peringkat fifa setelahnya jika salah satu menang atau draw.',
     },
   ];
 };

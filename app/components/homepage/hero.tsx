@@ -299,7 +299,7 @@ export default function Hero() {
               </div>
               </div>
               <h1 className="mb-3 text-5xl font-bold text-sky-900">
-                Hitung Peringkat FIFA
+                Kalkulator Peringkat FIFA
               </h1>
               <p className="mx-auto mb-4 max-w-[600px] text-base font-medium text-sky-900 sm:text-lg sm:leading-[1.44]">
                 Pilih negara yang akan bertanding<br />
