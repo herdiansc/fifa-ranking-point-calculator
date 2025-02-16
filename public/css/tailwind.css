@@ -3095,6 +3095,14 @@ html{
   height: 1px;
 }
 
+.h-screen{
+  height: 100vh;
+}
+
+.h-auto{
+  height: auto;
+}
+
 .min-h-screen{
   min-height: 100vh;
 }
@@ -3188,12 +3196,20 @@ html{
   flex-wrap: wrap;
 }
 
+.place-content-center{
+  place-content: center;
+}
+
 .place-content-end{
   place-content: end;
 }
 
 .place-items-center{
   place-items: center;
+}
+
+.content-center{
+  align-content: center;
 }
 
 .content-end{

@@ -41,7 +41,7 @@ export default function FullTable() {
                               {item.rankingItem.rank}
                             </td>
                             <td>
-                              {/* <Link to={"/negara/" + item.rankingItem.countryCode + "-" + item.rankingItem.name.toLowerCase()}> */}
+                              <Link to={"/negara/" + item.rankingItem.countryCode + "-" + item.rankingItem.name.toLowerCase()}>
                                 <div className="flex items-center gap-3">
                                   <div className="avatar">
                                     {typeof countriesInId[
@@ -80,7 +80,7 @@ export default function FullTable() {
                                     </div>
                                   </div>
                                 </div>
-                              {/* </Link> */}
+                              </Link>
                             </td>
                             <td>{item.rankingItem.totalPoints}</td>
                           </tr>

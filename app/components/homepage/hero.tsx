@@ -32,7 +32,7 @@ type CountryRank = {
 type CountryOptions = {
   [key: string]: { name: string; point: number; rank: number; tag: string };
 };
-const createCountryOptions = (countryRank: CountryRank) => {
+export const createCountryOptions = (countryRank: CountryRank) => {
   const countryOptions: CountryOptions = {};
   const countryPoints: number[] = [];
   countryRank.rankings.map((item) => {
