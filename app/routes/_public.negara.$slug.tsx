@@ -1,50 +1,16 @@
 import type { LoaderFunction, MetaFunction } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { Link, useLoaderData } from '@remix-run/react';
 import React from 'react';
 import { countriesInId } from '~/commons/country-names-id';
 import PointCalculationMethod from '~/components/article/point-calculation-method';
 import { createCountryOptions, ParentData } from '~/components/homepage/hero';
 
-type ArticleDetail = {
-  component: string; //React.ReactNode;
-  title: string;
-  description: string;
-};
-type ArticleMaps = {
-  [key: string]: ArticleDetail;
-};
-type ArticleComponents = {
-  [key: string]: React.ReactNode;
-};
-const articleMaps: ArticleMaps = {
-  'cara-perhitungan-poin-peringkat-fifa': {
-    component: 'PointCalculationMethod', //<PointCalculationMethod />,
-    title: 'Cara Perhitungan Poin dan Peringkat FIFA',
-    description:
-      'Bagaimana Cara Menghitung Peringkat FIFA, Penjelasan Lengkap, dan Contoh Perhitungannya',
-  },
-};
-
-const articleComponents: ArticleComponents = {
-  PointCalculationMethod: <PointCalculationMethod />,
-};
-
-const getArticleMeta = (slug: string | undefined) => {
-  if (!slug) {
-    return false;
-  }
-  return articleMaps[slug];
-};
-
 function titleCase(str) {
   var splitStr = str.toLowerCase().split(' ');
   for (var i = 0; i < splitStr.length; i++) {
-    // You do not need to check if i is larger than splitStr length, as your for does that for you
-    // Assign it back to the array
     splitStr[i] =
       splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
   }
-  // Directly return the joined string
   return splitStr.join(' ');
 }
 
@@ -84,7 +50,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     {
       name: 'description',
       content:
-        'Berikut adalah peringkat FIFA terbaru dari timnas ' +
+        'Berikut adalah klasemen atau peringkat FIFA terbaru dari timnas ' +
         titleCase(countriesInId[data.code]['label'])
     },
   ];
@@ -101,7 +67,7 @@ export default function Index() {
   return (
     <>
       <div className="container">
-        <div className="flex flex-wrap items-center h-screen">
+        <div className="flex flex-wrap items-center h-screen -my-20">
           <div className="w-full px-4">
             <img
               className="mask mask-hexagon place-self-center mb-10"
@@ -118,8 +84,10 @@ export default function Index() {
                 Peringkat FIFA {countriesInId[code]['label']}
               </h1>
               <p className="mb-5 text-base text-body-color ">
-                Peringkat FIFA timnas {countriesInId[code]['label']} terbaru yakni {currentMonth} {d.getFullYear()}{' '}adalah {countryOptions[code]['rank']}
+                Peringkat FIFA timnas {countriesInId[code]['label']} terbaru yakni {currentMonth} {d.getFullYear()}{' '}adalah<br />
+                <span className="text-primary text-3xl font-bold">#{countryOptions[code]['rank']}</span>
               </p>
+              <Link to="/" className="btn place-self-center">Kembali</Link>
             </div>
           </div>
         </div>

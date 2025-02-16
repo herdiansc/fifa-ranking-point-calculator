@@ -2995,6 +2995,16 @@ html{
   margin-bottom: 2rem;
 }
 
+.-my-10{
+  margin-top: -2.5rem;
+  margin-bottom: -2.5rem;
+}
+
+.-my-20{
+  margin-top: -5rem;
+  margin-bottom: -5rem;
+}
+
 .mb-10{
   margin-bottom: 2.5rem;
 }
@@ -3099,10 +3109,6 @@ html{
   height: 100vh;
 }
 
-.h-auto{
-  height: auto;
-}
-
 .min-h-screen{
   min-height: 100vh;
 }
@@ -3196,20 +3202,12 @@ html{
   flex-wrap: wrap;
 }
 
-.place-content-center{
-  place-content: center;
-}
-
 .place-content-end{
   place-content: end;
 }
 
 .place-items-center{
   place-items: center;
-}
-
-.content-center{
-  align-content: center;
 }
 
 .content-end{
