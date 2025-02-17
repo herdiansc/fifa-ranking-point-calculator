@@ -61,7 +61,7 @@ export default function PublicLayout() {
               </li>
             </ul>
           </div>
-          <Link to="/" className="text-center text-2xl block w-full">
+          <Link to="/" className="text-center text-2xl w-full z-1">
             <span className="text-primary font-light">Peringkat</span>{' '}
             <span className="text-sky-900 font-extrabold">FIFA</span>
           </Link>

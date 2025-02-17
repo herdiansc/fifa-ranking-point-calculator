@@ -67,25 +67,26 @@ export default function Index() {
   return (
     <>
       <div className="container">
-        <div className="flex flex-wrap items-center h-screen -my-20">
+        <div className="flex flex-wrap items-center h-screen -my-20 -z-1">
           <div className="w-full px-4">
-            <img
-              className="mask mask-hexagon place-self-center mb-10"
-              width={150}
-              src={
-                '/images/flags/' +
-                countriesInId[code]['code2'].toLowerCase() +
-                '.svg'
-              }
-              alt={'flag of ' + countriesInId[code]['label']}
-            />
+            <div className="w-fit place-self-center text-center mb-8">
+              <div className="mask mask-hexagon mb-2">
+                <img
+                  width={200}
+                  src={'/images/flags/'+ countriesInId[code]['code2'].toLowerCase() +'.svg'}
+                  alt={'bendera ' + countriesInId[code]['label']}
+                />
+              </div>
+              <span className="ribbon text-[#ededed] font-bold text-[20px] mt-2">
+                #{countryOptions[code]['rank']}
+              </span>
+            </div>
             <div className="text-center">
               <h1 className="mb-4 text-3xl font-bold text-sky-900 sm:text-4xl md:text-[40px] md:leading-[1.2] capitalize">
                 Peringkat FIFA {countriesInId[code]['label']}
               </h1>
               <p className="mb-5 text-base text-body-color ">
-                Peringkat FIFA timnas {countriesInId[code]['label']} terbaru yakni {currentMonth} {d.getFullYear()}{' '}adalah<br />
-                <span className="text-primary text-3xl font-bold">#{countryOptions[code]['rank']}</span>
+                Peringkat FIFA timnas {countriesInId[code]['label']} saat ini {currentMonth} {d.getFullYear()}{' '}adalah #{countryOptions[code]['rank']}
               </p>
               <Link to="/" className="btn place-self-center">Kembali</Link>
             </div>
