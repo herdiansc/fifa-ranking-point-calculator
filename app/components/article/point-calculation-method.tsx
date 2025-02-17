@@ -1,3 +1,4 @@
+import { Link } from '@remix-run/react';
 import React from 'react';
 
 export default function PointCalculationMethod(): React.ReactNode {
@@ -252,6 +253,12 @@ export default function PointCalculationMethod(): React.ReactNode {
                   </ol>
                   <p className="my-2 text-base text-body-color">
                     Maka tim A mendapatkan 9 poin tambahan.
+                  </p>
+                  <h2 className="my-8 text-2xl font-bold text-sky-900">
+                    Aplikasi Kalkulator Penghitung Peringkat FIFA
+                  </h2>
+                  <p className="my-2 text-base text-body-color">
+                    Di situs web ini bisa menghitung peringkat FIFA menggunakan kalkulator, silahkan akses pada link <Link to="/" className="underline text-blue-700">ini</Link>
                   </p>
                   <h2 className="my-8 text-2xl font-bold text-sky-900">
                     Kesimpulan
