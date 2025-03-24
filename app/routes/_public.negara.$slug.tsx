@@ -83,10 +83,10 @@ export default function Index() {
             </div>
             <div className="text-center">
               <h1 className="mb-4 text-3xl font-bold text-sky-900 sm:text-4xl md:text-[40px] md:leading-[1.2] capitalize">
-                {countriesInId[code]['label']}
+                Peringkat FIFA Timnas {countriesInId[code]['label']}
               </h1>
               <p className="mb-5 text-base text-body-color ">
-                Peringkat FIFA timnas <span className="capitalize">{countriesInId[code]['label']}</span> saat ini bulan {currentMonth} {d.getFullYear()}{' '}adalah #{countryOptions[code]['rank']}
+                Saat ini {currentMonth} {d.getFullYear()} timnas <span className="capitalize">{countriesInId[code]['label']}</span> menduduki peringkat FIFA #{countryOptions[code]['rank']}
               </p>
               <Link to="/" className="btn place-self-center">Kembali</Link>
             </div>

@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react";
+
 export default function UpdateTimnas({ rank }) {
   const month = [
     'Januari',
@@ -33,13 +35,15 @@ export default function UpdateTimnas({ rank }) {
                 Timnas Indonesia saat ini ada di peringkat
               </p>
               <div className="w-fit place-self-center">
-                <div className="bg-primary mask mask-hexagon mb-2">
-                  <img
-                    width={200}
-                    src={'/images/flags/id.svg'}
-                    alt={'flag of indonesia'}
-                  />
-                </div>
+                <Link to={"/negara/IDN-indonesia"}>
+                  <div className="bg-primary mask mask-hexagon mb-2">
+                    <img
+                      width={200}
+                      src={'/images/flags/id.svg'}
+                      alt={'flag of indonesia'}
+                    />
+                  </div>              
+                </Link>
                 <span className="ribbon text-[#ededed] font-bold text-[20px]">
                   #{rank}
                 </span>
